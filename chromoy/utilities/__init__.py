@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
-from . import files
-from . import jsoning
-from . import processes
+from chromoy.utilities import files
+from chromoy.utilities import jsoning
+from chromoy.utilities import processes

@@ -1,3 +1,3 @@
-from .auth import *
-from .connection import *
-from .parsing import *
+from chromoy.mixins.auth import *
+from chromoy.mixins.connection import *
+from chromoy.mixins.parsing import *
