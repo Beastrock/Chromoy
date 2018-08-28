@@ -22,9 +22,11 @@ ___all___ = ["ConnectionMixin"]
 
 
 class ConnectionMixin(Chrome):
-    """
-    Количество
-    """
+    immortal_processes = []
+    # все родительские процессы за всю сессию переиспользований класса
+    all_session_processes = []
+    init_kwargs = {}
+    main_process_pid = None
 
     def _get(self, url):
         self.execute(Command.GET, {'url': url})
@@ -61,23 +63,12 @@ class ConnectionMixin(Chrome):
 
     def get(self, url):
         """
-        Декоратор, который ловит исключения, связанные с потерей подключения chrome driver'a.
-
-        @wraps(driver_function) - декоратор, который импортирует
-        driver_function.__name__,.__docs__ и тд. из декорируемой функции.
-        (Иначе выводил был всё о  handled_driver_function функции, которая оборачивает driver_function)
-
-        :param driver_function: декорируемая функция. (!) Обязательное условие - первым аргументом должен
-         быть  аргумент с объектом driver'а, а вторым(если есть) - url, который нужно загрузить.
-
-        :return: результат декорируемой функции или None, если она ничего не возвращает
+        "Переметод" get, который ловит исключения, связанные с потерей подключения chrome driver'a.
         """
 
         sleep_seconds = 60
         error_name = ''
         status_code = None
-
-        # TODO: проверить драйвер на instaste(driver, Chrome.driver)
 
         error_message = 'Can\'t connect to %s' % url
 
@@ -120,18 +111,19 @@ class ConnectionMixin(Chrome):
     def redeclare(self):
         """
         Завершает все процессы драйвера, а затем переинициализирует родительский класс,
-         создавая этим новый instanсe хрома
+         создавая этим новый instance хрома
         :return:
         """
         self.kill_instance_processes()
         super().__init__(**self.init_kwargs)
-        # replace main_process_pid with new redeclared driver pid
+        # replace main_process_pid with new driver pid
         self.main_process_pid = self.service.process.pid
         self.all_session_processes.append(self.main_process_pid)
 
     def quit(self):
         self.kill_all_processes()
 
+    # noinspection PyUnusedLocal
     def kill_all_processes(self, *args):
 
         def is_first_iteration(num):

@@ -1,13 +1,14 @@
 import datetime
 import logging
+from os.path import join
 from time import sleep
 
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver import Chrome
 from selenium.webdriver.common.by import By
+# noinspection PyPep8Naming
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from os.path import join
 
 from chromoy import settings as stg
 from chromoy import utilities
@@ -18,6 +19,7 @@ ___all___ = ["ParsingMixin"]
 
 
 class ParsingMixin(Chrome):
+    screenshot_and_source_directory = ""
 
     def _get_element_by(self, value: str, identify_type=By.CSS_SELECTOR, multiple=False):
         """
@@ -25,7 +27,7 @@ class ParsingMixin(Chrome):
 
         :param By identify_type: By.ID , By.CLASS_NAME, By.CSS_SELECTOR
         :param str value: selector value
-        :param bool _multiple: True for getting multiple elements, False - first element
+        :param bool multiple: True for getting multiple elements, False - first element
         :return: list of elements (if _multiple) /  element
         """
 
@@ -62,7 +64,8 @@ class ParsingMixin(Chrome):
             self,
             value,
             identify_type=By.CSS_SELECTOR,
-            sleeping=True
+            sleeping=True,
+            sleep_seconds=stg.DEFAULT_SLEEP_SECONDS
     ):
         """
         Кликает по элементу с указанным селектором и спит self.sleep_seconds
@@ -70,6 +73,7 @@ class ParsingMixin(Chrome):
         :param identify_type:
         :param value:
         :param sleeping:
+        :param sleep_seconds:
         :return: возвращает найденный элемент
         """
 
@@ -78,7 +82,7 @@ class ParsingMixin(Chrome):
         element.click()
 
         if sleeping:
-            sleep(self.sleep_seconds)
+            sleep(sleep_seconds)
 
         return element
 
@@ -87,7 +91,7 @@ class ParsingMixin(Chrome):
             identify_type=By.CSS_SELECTOR
     ):
         def driver_find_element(driver):
-            return self.find_element(identify_type, value)
+            return driver.find_element(identify_type, value)
 
         wait = WebDriverWait(self, stg.MAX_SECONDS_TO_GET_ELEMENT)
 
