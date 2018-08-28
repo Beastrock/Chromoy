@@ -23,11 +23,11 @@ def check_pid_status(pid, is_raising_if_exists=False):
     # check current process exists
     try:
         parent_process = psutil.Process(pid)
-        MAIN_LOGGER.warning('Found process "%s" with %s status.',
+        MAIN_LOGGER.info('Found process "%s" with %s status.',
                             parent_process.name(), parent_process.status())
         MAIN_LOGGER.info('Output connections:')
         for process in parent_process.connections():
-            MAIN_LOGGER.warning(process)
+            MAIN_LOGGER.info(process)
     except psutil.NoSuchProcess:
         parent_process = None
         MAIN_LOGGER.info('No such PPID [%d]. All have been killed.', pid)

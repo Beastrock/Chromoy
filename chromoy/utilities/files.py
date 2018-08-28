@@ -17,20 +17,3 @@ def read(file_path):
     with open(file_path, 'r') as file_handler:
         return file_handler.read()
 
-
-def save_sample_to_unique_logger_directory(name, file_path):
-    """
-    Если папка не найдена или строка None, то пишет warning в logger и не сохраняет ничего.
-
-    :param file_path: строку, которую надо сохранить
-    :param name: имя сохраняемого файла
-    :return:
-    """
-
-    if exists(file_path):
-        save_file(name, file_path)
-        return
-
-    raise NotADirectoryError(
-        'Saving sample not performed.\nDirectory %s not found.\n' % file_path
-    )

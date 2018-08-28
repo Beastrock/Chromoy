@@ -1,6 +1,7 @@
 import datetime
 import logging
-from os.path import join
+from os import mkdir
+from os.path import join, isdir
 from time import sleep
 
 from selenium.common.exceptions import TimeoutException
@@ -21,7 +22,7 @@ ___all___ = ["ParsingMixin"]
 class ParsingMixin(Chrome):
     screenshot_and_source_directory = ""
 
-    def _get_element_by(self, value: str, identify_type=By.CSS_SELECTOR, multiple=False):
+    def _get_element_by(self, identify_type, value: str, multiple=False):
         """
         Берёт элемент со страницы по селекторам.
 
@@ -47,10 +48,10 @@ class ParsingMixin(Chrome):
 
         return element
 
-    def get_element_by(self, value, identify_type=By.CSS_SELECTOR):
-        self._get_element_by(value, identify_type)
+    def get_element_by(self, identify_type, value):
+        return self._get_element_by(identify_type, value)
 
-    def get_elements_by(self, value, identify_type=By.CSS_SELECTOR):
+    def get_elements_by(self, identify_type, value):
         """
         Берёт элементы со страницы по селекторам.
 
@@ -109,12 +110,17 @@ class ParsingMixin(Chrome):
         if not self.screenshot_and_source_directory:
             return
 
+        if not (isdir(self.screenshot_and_source_directory)):
+            mkdir(self.screenshot_and_source_directory)
+
         date = str(datetime.datetime.now()).replace(' ', '_')
 
         self.get_screenshot_as_file(
             join(self.screenshot_and_source_directory, 'img_%s.png' % date)
         )
-        utilities.files.save_sample_to_unique_logger_directory(
+
+        utilities.files.save_file(
             self.page_source,
-            join(self.screenshot_and_source_directory, 'page_%s.html' % date)
+            join(self.screenshot_and_source_directory,
+                 'page_%s.html' % date)
         )
