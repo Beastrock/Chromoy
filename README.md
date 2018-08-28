@@ -10,8 +10,12 @@
 from chromoy import Chromoy
 
 driver = Chromoy(
-        driver_file_path="file_path to your driver",
+        driver_file_path="file_path to chrome driver",
         debug=True
     )
 
 ```
+
+# Possibilities
+
+ TODO: docs
