@@ -1,0 +1,66 @@
+
+# project specific
+
+.logs/
+.cache/
+*/static/
+*/settings/local.py
+wsgi_local.yaml
+db.sqlite3
+nohup.out
+
+# Sphinx
+
+docs/build/
+docs/_build/
+docs/cpanel/
+
+# Jetbrains
+
+.idea/
+
+# python
+
+__pycache__/
+venv/
+pip-log.txt
+
+# Unit test / coverage
+
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+.hypothesis/
+
+# SSL / SSH keys
+
+*.key
+*.crt
+*.csr
+id_rsa
+id_rsa.pub
+
+# system files
+
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+*.lnk
+.env
+*.logol
+
+settings/local.py
+*/settings/local.py
+run/
+similar.csv
+.pytest_cache
