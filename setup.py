@@ -6,7 +6,7 @@ setup(
     author_email="beastrock@mail.ru",
     url="https://github.com/Beastrock/Chromoy",
     description="Refreshed chrome-driver for parsing and cron-testing.",
-    version='0.04',  # Update the version number for new releases,
+    version='0.05',  # Update the version number for new releases,
     packages=['chromoy'],
     install_requires=[
         'selenium==3.14.0',
