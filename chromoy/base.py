@@ -70,8 +70,5 @@ class Chromoy(ConnectionMixin, ParsingMixin, AuthMixin):
         self.all_session_processes.append(self.main_process_pid)
         processes.check_pid_status(self.main_process_pid)
 
-        signal.signal(signal.SIGINT, self.kill_all_processes)
-        signal.signal(signal.SIGTERM, self.kill_all_processes)
-
         if cookies is not None:
             self.load_cookies_to_web_driver_cookie_jar(cookies)
