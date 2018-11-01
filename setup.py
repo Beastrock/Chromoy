@@ -13,7 +13,7 @@ setup(
         'beautifulsoup4==4.6.3',
         'lxml==4.2.4',
         'PyVirtualDisplay==0.2.1',
-        'requests==2.19.1',
+        'requests==2.20.0',
         'psutil==5.4.7',
     ],
 )
