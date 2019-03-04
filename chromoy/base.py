@@ -26,7 +26,7 @@ class Chromoy(ConnectionMixin, ParsingMixin, AuthMixin):
     ):
         """
         :param debug
-        :param proxy: example of proxy arg format "socks5://proxy.gibdev.ru:10001"
+        :param proxy: example of proxy arg format "socks5://host:port
         :param cookies:
         :param is_file_logging: true пишет в файл, false соотвественно.
         """
