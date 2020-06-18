@@ -14,6 +14,6 @@ setup(
         'lxml==4.2.4',
         'PyVirtualDisplay==0.2.1',
         'requests==2.20.0',
-        'psutil==5.4.7',
+        'psutil==5.6.6',
     ],
 )
